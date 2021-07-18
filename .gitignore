@@ -1,0 +1,4 @@
+test.dat
+*.bz2
+__pycache__
+*.py[co]

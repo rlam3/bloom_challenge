@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "bloom_credit_challenge"
+version = "0.1.0"
+description = ""
+authors = ["Raymond Lam <raymondlam1991@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+SQLAlchemy = "^1.4.21"
+Flask = "^2.0.1"
+Flask-SQLAlchemy = "^2.5.1"
+Flask-Migrate = "^3.0.1"
+flask-marshmallow = "^0.14.0"
+marshmallow-sqlalchemy = "^0.26.1"
+psycopg2 = "^2.9.1"
+
+[tool.poetry.dev-dependencies]
+ipython = "^7.25.0"
+pandas = "^1.3.0"
+pycodestyle = "^2.7.0"
+autopep8 = "^1.5.7"
+flask-shell-ipython = "^0.4.1"
+commitizen = "^2.17.13"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
