@@ -1,0 +1,7 @@
+from .bloom_credit.factory import create_app
+
+app = create_app()
+
+# Run the app
+if __name__ == '__main__':
+    app.run(debug=True)
