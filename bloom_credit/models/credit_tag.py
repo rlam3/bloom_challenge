@@ -11,6 +11,10 @@ class CreditTag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(5), nullable=False)
 
+    # relationship to credit tag score
+    credit_tag_score = db.relationship(
+        "ConsumerTagScore", backref="credit_tag", lazy=True)
+
     @classmethod
     def get_where(cls, **kwargs):
         return cls.query.filter_by(**kwargs)
@@ -30,16 +34,3 @@ class CreditTag(db.Model):
 
     def __repr__(self):
         return "<CreditTag: {}>".format(self.__dict__)
-
-
-# class ConsumerTags(db.Model):
-#     """
-#     A consumer tag is a tag that is assigned to a consumer.
-#     """
-#     __tablename__ = "consumer_tags"
-
-#     tag_id = db.Column(db.Integer, primary_key=True, nullable=False)
-#     tag = db.Column(db.String(72), nullable=False)
-
-#     def __repr__(self):
-#         return "<ConsumerTag: {}>".format(self.tag)
