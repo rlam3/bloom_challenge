@@ -1,7 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
+from flask import jsonify
 from sqlalchemy.orm import backref
-from ..extensions import db
-
+from bloom_credit.extensions import db
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 
@@ -14,7 +13,7 @@ class Consumer(db.Model):
     """
     A consumer is a person who has a credit card.
     """
-    __tablename__ = "consumers"
+    __tablename__ = "consumer"
 
     uuid = db.Column(UUID(as_uuid=True), primary_key=True,
                      default=uuid.uuid4)

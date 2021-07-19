@@ -4,17 +4,21 @@
 ####### imports #######
 #######################
 
+from bloom_credit.models.consumer import Consumer
+
 from flask import (
     Flask,
     current_app,
     request,
     g,
+    # current_user,
 )
-from .extensions import (
+from bloom_credit.extensions import (
     db,
     migrate,
     marshmallow
 )
+
 
 import os
 import sys
@@ -32,7 +36,7 @@ class AppConfigs(object):
     # Databse - Self hosted on main app
     DB_HOST = 'localhost'
     DB_PORT = 5432
-    DB_NAME = 'bloom'
+    DB_NAME = 'bloom3'
     DB_USERNAME = ''
     DB_PASSWORD = ''
 
@@ -64,10 +68,9 @@ def create_app(config_object=None,
 
     app.config.from_object(AppConfigs())
 
+    register_shellcontext(app)
     register_api_extensions(app)
     register_api_blueprints(app)
-
-    register_shellcontext(app)
 
     app.before_request(create_before_request(app))
 
@@ -78,7 +81,6 @@ def register_api_extensions(app):
 
     db.init_app(app)
     migrate.init_app(app, db)
-
     marshmallow.init_app(app)
 
     return None
@@ -88,8 +90,6 @@ def register_shellcontext(app):
     """Register shell context objects."""
     def shell_context():
         """Shell context objects."""
-
-        from .models.consumer import Consumer
 
         return {
             'app': app,
@@ -102,4 +102,5 @@ def register_shellcontext(app):
 
 def register_api_blueprints(app):
 
-    pass
+    from .api.v1.sa_routes import api_v1 as api_v1_blueprint
+    app.register_blueprint(api_v1_blueprint, url_prefix='/api/v1')
