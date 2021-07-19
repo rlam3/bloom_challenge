@@ -21,6 +21,7 @@ pycodestyle = "^2.7.0"
 autopep8 = "^1.5.7"
 flask-shell-ipython = "^0.4.1"
 commitizen = "^2.17.13"
+colorama = "^0.4.4"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

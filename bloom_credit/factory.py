@@ -5,6 +5,8 @@
 #######################
 
 from bloom_credit.models.consumer import Consumer
+from bloom_credit.models.credit_tag import CreditTag
+from bloom_credit.models.consumer_tag_score import ConsumerTagScore
 
 from flask import (
     Flask,
@@ -95,6 +97,8 @@ def register_shellcontext(app):
             'app': app,
             'db': db,
             'Consumer': Consumer,
+            'CreditTag': CreditTag,
+            'ConsumerTagScore': ConsumerTagScore
         }
 
     app.shell_context_processor(shell_context)

@@ -1,8 +1,9 @@
-from flask import jsonify
 from sqlalchemy.orm import backref
-from bloom_credit.extensions import db
+from ..extensions import db
+
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
+from .consumer_tag_score import ConsumerTagScore
 
 # The first line of the file is the header. The structure of the credit records is as follows:
 # ● consumer name (string, width = 72)
@@ -19,6 +20,10 @@ class Consumer(db.Model):
                      default=uuid.uuid4)
     ssn = db.Column(db.Integer, nullable=False)
     name = db.Column(db.String(72), nullable=False)
+
+    # One to many credit tag scores
+    consumer_tag_scores = db.relationship(
+        'ConsumerTagScore', backref='consumer', lazy='dynamic')
 
     @classmethod
     def get_where_id(cls, uuid):
