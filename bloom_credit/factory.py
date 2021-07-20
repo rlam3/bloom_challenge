@@ -38,7 +38,7 @@ class AppConfigs(object):
     # Databse - Self hosted on main app
     DB_HOST = 'localhost'
     DB_PORT = 5432
-    DB_NAME = 'bloom3'
+    DB_NAME = 'bloom'
     DB_USERNAME = ''
     DB_PASSWORD = ''
 

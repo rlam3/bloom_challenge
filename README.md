@@ -14,16 +14,6 @@
 - postgres (docker or [https://postgresapp.com/](https://postgresapp.com/))
 - [psql-cli](https://blog.timescale.com/tutorials/how-to-install-psql-on-mac-ubuntu-debian-windows/)
 
-```sh
-poetry install
-export PYTHONPATH="${PYTHONPATH}:${pwd}"
-poetry shell # virtualenv with poetry automatically
-
-flask shell
-```
-
----
-
 ## Create Postgres DB instance with Docker OR [MacOS Postgres.app](https://postgresapp.com/)
 
 Assuming you are running a postgres server locally
@@ -42,6 +32,30 @@ createdb -h localhost -p 5432 -d bloom
 
 psql -d bloom -h localhost -p 5432
 ```
+
+You can app configs in the `bloom_credit/factory.py`
+If you choose to use a different database name in the AppConfigs class
+
+```
+    DB_HOST = 'localhost'
+    DB_PORT = 5432
+    DB_NAME = 'bloom'
+    DB_USERNAME = ''
+    DB_PASSWORD = ''
+```
+
+!! Ensure you have psql cli installed before `poetry install` because `psycopg2` requires `psql cli tools`
+Have it installed into .bashrc or .zshrc file
+
+```sh
+poetry install
+export PYTHONPATH="${PYTHONPATH}:${pwd}"
+poetry shell # virtualenv with poetry automatically
+
+flask shell
+```
+
+---
 
 ## 1. Split up the .dat file for easier sample size
 

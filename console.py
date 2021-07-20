@@ -23,12 +23,16 @@ def super_man(input_file, csv_file_name, CreditTag, ConsumerTagScore, Consumer):
 def parse_to_csv(input_file: str, output_file: str):
     """Parse records by csv file"""
 
+    print('parse_to_csv....')
+
     with open(input_file) as dat_file:
         with open(output_file, mode='w') as csv_file:
 
             spamwriter = csv.writer(
                 csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             # spamwriter.writerow(['name', 'ssn', 'tags'])
+
+            counter = 0
 
             # Read Data
             for row in dat_file:
@@ -39,7 +43,8 @@ def parse_to_csv(input_file: str, output_file: str):
                 # loop through tags and split every 9th character
                 tags = [x for x in re.findall('.........', tags)]
 
-                print(f'{name} : {ssn} : {tags}')
+                # print(f'{name} : {ssn} : {tags}')
+                print(f'{name} : {ssn} : {counter++}')
 
                 # Write data to csv file
                 spamwriter.writerow([name, ssn, *tags])
@@ -63,6 +68,8 @@ def insert_data(c_file: str, Consumer, ConsumerTagScore, ConsumerTag):
     # Consumer is passed in to give access to db and be in the right context
 
     # from models.consumer import Consumer
+
+    print('insert_data....')
 
     with open(c_file) as csv_file:
         spamreader = csv.reader(csv_file, delimiter=',', quotechar='"')
@@ -93,6 +100,8 @@ def insert_data(c_file: str, Consumer, ConsumerTagScore, ConsumerTag):
 
 def create_credit_tags(file_name: str, CreditTag):
     """Create credit tags"""
+
+    print('credit_card_tags....')
 
     with open(file_name) as csv_file:
         spamreader = csv.reader(csv_file, delimiter=',', quotechar='"')
