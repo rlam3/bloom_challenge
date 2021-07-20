@@ -4,13 +4,14 @@ from ..extensions import db
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 from .consumer_tag_score import ConsumerTagScore
+from .saBase import Base
 
 # The first line of the file is the header. The structure of the credit records is as follows:
 # ● consumer name (string, width = 72)
 # ● social security number (integer, width = 9)
 
 
-class Consumer(db.Model):
+class Consumer(Base):
     """
     A consumer is a person who has a credit card.
     """
@@ -24,27 +25,3 @@ class Consumer(db.Model):
     # One to many credit tag scores
     consumer_tag_scores = db.relationship(
         'ConsumerTagScore', backref='consumer', lazy='dynamic')
-
-    @classmethod
-    def get_where_id(cls, uuid):
-        return cls.query.get(uuid)
-
-    @classmethod
-    def get_where(cls, **kwargs):
-        return cls.query.filter_by(**kwargs)
-
-    @classmethod
-    def create(cls, commit=True, **kwargs):
-        instance = cls(**kwargs)
-        return instance.save(commit=commit)
-
-    # Save the consumer to the database
-    def save(self, commit=True):
-        db.session.add(self)
-        db.session.flush()
-        if commit:
-            db.session.commit()
-        return self
-
-    def __repr__(self):
-        return "<Consumer: {}>".format(self.__dict__)

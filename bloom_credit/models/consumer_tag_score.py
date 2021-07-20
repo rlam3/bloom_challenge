@@ -5,6 +5,8 @@ from ..extensions import db
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 
+from .saBase import Base
+
 # from .consumer import Consumer
 
 # The first line of the file is the header. The structure of the credit records is as follows:
@@ -14,7 +16,7 @@ import uuid
 from sqlalchemy.dialects.postgresql import UUID
 
 
-class ConsumerTagScore(db.Model):
+class ConsumerTagScore(Base):
     """
     A consumer is a person who has a credit card.
     """
@@ -29,23 +31,3 @@ class ConsumerTagScore(db.Model):
     # relationship to credit tag table
     credit_tag_id = db.Column(db.ForeignKey(
         'credit_tag.id'), nullable=False, primary_key=True)
-
-    @classmethod
-    def create(cls, commit=True, **kwargs):
-        instance = cls(**kwargs)
-        return instance.save(commit=commit)
-
-    @classmethod
-    def get_where(cls, **kwargs):
-        return cls.query.filter_by(**kwargs)
-
-    # Save the consumer to the database
-    def save(self, commit=True):
-        db.session.add(self)
-        db.session.flush()
-        if commit:
-            db.session.commit()
-        return self
-
-    def __repr__(self):
-        return "<ConsumerTagScore: {}>".format(self.__dict__)
