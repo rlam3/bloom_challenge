@@ -86,8 +86,8 @@ App: bloom_challenge.bloom_credit.factory [development]
 Instance: /Users/raymondlam/Local Projects/instance
 In [1]: from console import *
    ...:
-   ...: input_file = 'test10.dat'
-   ...: csv_file_name = 'tes10.csv'
+   ...: input_file = 'test100.dat'
+   ...: csv_file_name = 'tes100.csv'
 
 In [2]: super_man(input_file, csv_file_name, CreditTag, ConsumerTagScore, Consumer)
 ```

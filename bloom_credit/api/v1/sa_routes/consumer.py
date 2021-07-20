@@ -14,6 +14,8 @@ from ..ma_schema.consumertagscore_schema import ConsumerTagScoreSchema as consum
 
 from bloom_credit.api.v1.exception import InvalidAPIUsage
 
+from bloom_credit.extensions import db
+
 # create GET route for blueprints to retrieves
 
 
@@ -58,6 +60,47 @@ def get_consumer_credit_data():
         # Return user if no exception is raised
         schema = consumerTagScoreSchemaForAPI(many=True)
         return jsonify(data=schema.dump(data)), 200
+
+    except Exception as e:
+        return jsonify(e.to_dict())
+
+
+@api_v1_blueprint.route('/consumer/stats', methods=['GET'])
+def get_consumer_stats():
+    try:
+
+        if request.args.get('credit_tag') is None:
+            raise InvalidAPIUsage(
+                'credit_tag query-string parameter is required', 400)
+
+        ctag = CreditTag.get_where(name=request.args.get('credit_tag'))[0]
+
+        cts = db.session.query(ConsumerTagScore).filter_by(
+            credit_tag_id=ctag.id).all()
+
+        cleaned_cts = [x for x in cts if x.score > 0]
+
+        if len(cts) == 0:
+            raise InvalidAPIUsage(
+                message='credit tag data not found', status_code=400)
+
+        # average without any negavite scores
+        avg = sum([x.score for x in cleaned_cts]) / len(cleaned_cts)
+
+        # median without any negavite scores
+        median = sorted([x.score for x in cleaned_cts])[len(cleaned_cts) // 2]
+
+        # standard deviation without any negavite scores
+        std_dev = (
+            sum([(x.score - avg) ** 2 for x in cleaned_cts]) / len(cleaned_cts)) ** 0.5
+
+        return jsonify(
+            data={
+                'credit_tag_name': ctag.name,
+                'mean': avg,
+                'median': median,
+                'std_dev': std_dev
+            }), 200
 
     except Exception as e:
         return jsonify(e.to_dict())
