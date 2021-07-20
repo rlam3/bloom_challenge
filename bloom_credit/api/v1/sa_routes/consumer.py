@@ -73,7 +73,11 @@ def get_consumer_stats():
             raise InvalidAPIUsage(
                 'credit_tag query-string parameter is required', 400)
 
-        ctag = CreditTag.get_where(name=request.args.get('credit_tag'))[0]
+        ctag = CreditTag.get_where(name=request.args.get('credit_tag')).all()
+
+        if len(ctag) == 0:
+            raise InvalidAPIUsage(
+                message='credit_tag query-string parameter not found', status_code=400)
 
         cts = db.session.query(ConsumerTagScore).filter_by(
             credit_tag_id=ctag.id).all()
