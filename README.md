@@ -119,6 +119,10 @@ flask run
 Use the following URL with corresponding consumer_id/uuid to obtain credit data for consumer.
 http://localhost:5000/api/v1/consumer/credit_data?consumer_id=XXXX
 
+URL to get stats given 'X0001'
+http://localhost:5000/api/v1/consumer/stats?credit_tag=X0001
+
+
 # Play with ORM
 
 ```py
