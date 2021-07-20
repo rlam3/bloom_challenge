@@ -36,8 +36,11 @@ def parse_to_csv(input_file: str, output_file: str):
 
             # Read Data
             for row in dat_file:
+                # Parse data first 72 characters are the name
                 name: str = row[:72].strip()
+                # Parse data next 6 characters are the ssn
                 ssn: int = row[72:81]
+                # Parse tags next
                 tags = row[81:]
 
                 # loop through tags and split every 9th character
