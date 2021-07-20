@@ -51,7 +51,7 @@ To obtain first 100 lines:
 head -100 test.dat > test100.dat
 ```
 
-## 3. Create database schema with tables using Flask-Migrate
+## 2. Create database schema with tables using Flask-Migrate
 
 ```sh
 ❯ flask db upgrade
@@ -61,7 +61,7 @@ INFO  [alembic.runtime.migration] Running upgrade  -> 49e05cb5a29f, empty messag
 INFO  [alembic.runtime.migration] Running upgrade 49e05cb5a29f -> ec21a5e339db, empty message
 ```
 
-## 4. Insert data with ORM and session commits
+## 3. Insert data with ORM and session commits
 
 ```py
 ❯ flask shell
@@ -91,7 +91,7 @@ csv_file_name = 'test100.csv' # 'test.csv'
 super_man(input_file, csv_file_name, CreditTag, ConsumerTagScore, Consumer) # <<<<<<< This is where the magic happens >>>>>>>
 ```
 
-## 5. Load data from ORM to API
+## 4. Load data from ORM to API
 
 ```sh
 export FLASK_APP=run_api.py
