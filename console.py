@@ -44,7 +44,8 @@ def parse_to_csv(input_file: str, output_file: str):
                 tags = [x for x in re.findall('.........', tags)]
 
                 # print(f'{name} : {ssn} : {tags}')
-                print(f'{name} : {ssn} : {counter++}')
+                counter += 1
+                print(f'{name} : {ssn} : {counter}')
 
                 # Write data to csv file
                 spamwriter.writerow([name, ssn, *tags])
@@ -85,7 +86,9 @@ def insert_data(c_file: str, Consumer, ConsumerTagScore, ConsumerTag):
             ssn: int = row[1]
             tags = row[2:]
 
-            print(f'{name} : {ssn} : {counter++}')
+            counter += 1
+
+            print(f'{name} : {ssn} : {counter}')
 
             # Insert data into database
             con = Consumer.create(name=name, ssn=int(ssn))
