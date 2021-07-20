@@ -77,12 +77,15 @@ def insert_data(c_file: str, Consumer, ConsumerTagScore, ConsumerTag):
         list_of_headers = next(spamreader)
         cleaned_tag_names = [x.strip() for x in list_of_headers[2:]]
         # Loop through data
+
+        counter = 0
+
         for row in spamreader:
             name: str = row[0]
             ssn: int = row[1]
             tags = row[2:]
 
-            print(f'{name} : {ssn} : {tags}')
+            print(f'{name} : {ssn} : {counter++}')
 
             # Insert data into database
             con = Consumer.create(name=name, ssn=int(ssn))
