@@ -85,8 +85,8 @@ remember to update the input and output filename of the test.dat file.
 
 from console import *
 
-input_file = 'test100.dat'
-csv_file_name = 'tes100.csv'
+input_file = 'test100.dat' # 'test.dat'
+csv_file_name = 'test100.csv' # 'test.csv'
 
 super_man(input_file, csv_file_name, CreditTag, ConsumerTagScore, Consumer) # <<<<<<< This is where the magic happens >>>>>>>
 ```
@@ -101,6 +101,9 @@ export PYTHONPATH="${PYTHONPATH}:${pwd}"
 
 flask run
 ```
+
+Use the following URL with corresponding consumer_id/uuid to obtain credit data for consumer.
+http://localhost:5000/api/v1/consumer/credit_data?consumer_id=XXXX
 
 # Play with ORM
 
@@ -126,3 +129,12 @@ Out[5]: <Consumer: {'_sa_instance_state': <sqlalchemy.orm.state.InstanceState ob
 In [6]: len(c.consumer_tag_scores.all())
 Out[6]: 200
 ```
+
+# Tools / Resources
+
+- https://dbeaver.io/
+- https://docs.docker.com/samples/postgresql_service/
+- https://postgresapp.com/
+- https://python-poetry.org/
+- https://flask.palletsprojects.com/en/2.0.x/
+- https://flask-migrate.readthedocs.io/en/latest/
